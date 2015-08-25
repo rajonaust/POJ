@@ -1,0 +1,57 @@
+/*
+    Author : RAJON BARDHAN
+    AUST CSE 27th Batch
+    All my programming success are dedicated to my mom , dad , little sister madhobi , teachers , friends and love TANIA SULTANA RIMY
+
+    Problem Name : 1159 - Palindrome ( POJ )
+    ALGORITHM : Dynamic Programming
+*/
+
+#include <stdio.h>
+#include <string>
+#include <string.h>
+#include <iostream>
+using namespace std;
+
+#define pb push_back
+#define ff first
+#define ss second
+#define mp make_pair
+#define memo(a,b) memset(a,b,sizeof(a))
+#define INF 1e9
+#define EPS 1e-8
+#define PI 3.14159265358979323846
+
+typedef long long ll ;
+typedef unsigned long long ull ;
+
+/* int dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+/* int dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+/* int dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+/* int dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+
+short int dp[5000+10][5000+10] ;
+char A[5000+10];
+
+short int solve(int lo,int hi)
+{
+    if(lo>hi) return 0 ;
+    short int &ret = dp[lo][hi] ;
+    if(ret!=-1) return ret ;
+    ret = INF ;
+
+    if(A[lo]==A[hi]) return ret =  solve(lo+1,hi-1) ;
+    else return ret = 1+min(solve(lo+1,hi),solve(lo,hi-1));
+}
+
+int main()
+{
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
+    int n ;
+    cin >> n ;
+    cin >> A ;
+    memo(dp,-1);
+    cout << solve(0,n-1) << endl ;
+    return 0;
+}
